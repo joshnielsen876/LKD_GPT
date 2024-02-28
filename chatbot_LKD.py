@@ -2,8 +2,6 @@
 import streamlit as st
 # Importing the openai library, which allows for interactions with the OpenAI API, particularly useful for GPT models
 import openai
-from openai import OpenAI
-client = OpenAI()
 
 # Setting the API key for OpenAI. This is crucial for authenticating requests sent to the OpenAI API.
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -79,7 +77,7 @@ class Chatbot:
         if "messages" not in st.session_state:
             st.session_state.messages = []
             st.session_state.messages.append({"role": "system", "content": self.agent_A_chat_conversation_prompt})
-            response_initial = client.chat.completions.create(
+            response_initial = openai.chat.completions.create(
             model= "gpt-4-1106-preview",
             #response_format={ "type": "json_object" },
             messages=[
@@ -114,7 +112,7 @@ class Chatbot:
     def get_table(self, chat_convo):
         # Generate and send static system and user prompts to OpenAI for tag classification
         system_prompt, user_prompt = self.generate_template_filling_prompt(chat_convo)
-        response = client.chat.completions.create(
+        response = openai.chat.completions.create(
                 model="gpt-4-1106-preview",
                 messages=[{"role": "system", "content": system_prompt},
                             {"role": "user", "content": user_prompt}
@@ -192,7 +190,7 @@ def main():
                 #else:
                 #    messages_temp.append({"role": "user", "content": str(temp_web_retrival_data) + temp_intro_str + "Based on the provided web scrapped data and the user prompt please respond accordingly. Please ignore the web scrapped data if it is irrelevant and dosen't make any sense to you. Include facts and infomration from the webscrapped content if necessary and cite the answers whereever possible. \n \n The input User prompt is : " + user_prompt})
                 #    print(messages_temp)
-                for response in client.chat.completions.create(
+                for response in openai.chat.completions.create(
                     model=st.session_state.model,
                     messages=messages_temp,
                     stream=True,
