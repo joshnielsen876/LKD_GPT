@@ -2,6 +2,7 @@
 import streamlit as st
 # Importing the openai library, which allows for interactions with the OpenAI API, particularly useful for GPT models
 import openai
+from openai import OpenAI
 client = OpenAI()
 
 # Setting the API key for OpenAI. This is crucial for authenticating requests sent to the OpenAI API.
