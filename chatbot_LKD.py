@@ -2,7 +2,8 @@
 import streamlit as st
 # Importing the openai library, which allows for interactions with the OpenAI API, particularly useful for GPT models
 import openai
-
+from dotenv import load_dotenv
+load_dotenv()
 # Setting the API key for OpenAI. This is crucial for authenticating requests sent to the OpenAI API.
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
